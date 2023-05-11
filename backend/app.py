@@ -56,7 +56,10 @@ def deleteEmployee():
 @app.get('/api/services')
 def getServices():
     with mysql.connection.cursor() as cursor:
-        sql = "SELECT * FROM services"
+        sql = "SELECT services.id, services.name, professions.name AS profName " \
+              "FROM services " \
+              "LEFT JOIN professions " \
+              "ON services.ProfessionId = professions.id"
         cursor.execute(sql)
         result = cursor.fetchall()
 

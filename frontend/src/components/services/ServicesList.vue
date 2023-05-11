@@ -4,6 +4,7 @@
     <thead>
     <tr>
       <th>Услуга</th>
+      <th>Профессия</th>
       <th></th>
     </tr>
     </thead>
@@ -12,6 +13,7 @@
         v-for="service in services"
         :key="service.id">
       <td>{{ service.name }}</td>
+      <td>{{ service.profName }}</td>
       <td>
         <v-btn
             color="error"
