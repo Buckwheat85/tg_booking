@@ -10,10 +10,6 @@
         v-model:drawer="drawer"
     />
 
-    <v-app-bar location="bottom">
-      <v-app-bar-title>2023с</v-app-bar-title>
-    </v-app-bar>
-
     <v-main>
 
 
