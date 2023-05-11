@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia"
+// import { storeToRefs } from "pinia"
 import {computed, onMounted, ref} from "vue"
 import {useServiceStore} from "@/stores/services";
 
@@ -17,10 +17,10 @@ const emit = defineEmits(['update:modelValue'])
 
 const storeService = useServiceStore()
 
-const { getServicesByProfession } = storeToRefs(storeService)
+// const { getServicesByProfession } = storeToRefs(storeService)
 const services = computed(() => {
-  return getServicesByProfession.value(1)
-  // return storeService.getServices
+  // return getServicesByProfession.value(1)
+  return storeService.getServices
 })
 
 onMounted(() => {
