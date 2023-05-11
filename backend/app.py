@@ -56,7 +56,8 @@ def deleteEmployee():
 @app.get('/api/services')
 def getServices():
     with mysql.connection.cursor() as cursor:
-        sql = "SELECT services.id, services.name, professions.name AS profName " \
+        sql = "SELECT services.id, services.name, " \
+              "professions.name AS profName, professions.id AS professionId " \
               "FROM services " \
               "LEFT JOIN professions " \
               "ON services.ProfessionId = professions.id"
@@ -241,7 +242,8 @@ def getSplits():
     args = request.args
     selected_date = args.get("selected_date")
 
-    sql = "SELECT timetable.timeFrom AS timeFrom, timetable.timeTo AS timeTo, masters.id AS id, masters.name AS label " \
+    sql = "SELECT timetable.timeFrom AS timeFrom, timetable.timeTo AS timeTo, " \
+          "masters.id AS id, masters.name AS label, masters.ProfessionId AS professionId " \
           "FROM timetable " \
           "LEFT JOIN masters ON timetable.MasterId = masters.id " \
           "WHERE DATE(timetable.timeFrom)='{}'"

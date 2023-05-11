@@ -12,7 +12,7 @@ export const useServiceStore = defineStore('service', {
         getServicesByProfession: (state) => {
             return (profId)=> {
                 return state.services.filter((el) => {
-                    return el.ProfessionId == profId
+                    return el.professionId == profId
                 })
             }
         }

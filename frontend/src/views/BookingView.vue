@@ -39,6 +39,7 @@
   <new-booking-view
       v-model:dialog="dialogNewBooking"
       :employeeId="selectedEmployeeId"
+      :professionId="selectedEmployeeProfessionId"
       :selectedDateTime="selectedDateTime"
       @refresh-vue-cal="fetchEvents(timeFrom, timeTo)"
       :eventEdit="false"
@@ -64,6 +65,7 @@ const selectedDateModel = ref(new Date())
 const showBookingForm = ref(false)
 const dialogNewBooking = ref(false)
 const selectedEmployeeId = ref(null)
+const selectedEmployeeProfessionId = ref(0)
 const selectedDateTime = ref('')
 const selectedEvent = ref(null)
 
@@ -99,6 +101,7 @@ onBeforeMount(() => {
 
 function clickCalendar(data) {
   selectedEmployeeId.value = data.split
+  selectedEmployeeProfessionId.value = splitDays.value.find(el => el.id == data.split).professionId
   const thirtyMins = 30 * 60 * 1000 //30 минут
   selectedDateTime.value = new Date(Math.floor(data.date / thirtyMins) * thirtyMins) //окргуглили до 30 минут в меньшую сторону
   dialogNewBooking.value = true

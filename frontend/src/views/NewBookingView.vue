@@ -8,7 +8,10 @@
 
       <v-card-item>
         <employees-select v-model="employeeId"/>
-        <services-select v-model="serviceId"/>
+        <services-select
+            v-model="serviceId"
+            :profession-id="props.professionId"
+        />
         <clients-select v-model="clientId"/>
       </v-card-item>
 
@@ -74,7 +77,7 @@ import {useWorkShedulesStore} from "@/stores/workshedules"
 
 const storeWorkShedules = useWorkShedulesStore()
 
-const props = defineProps(['dialog', 'employeeId', 'selectedDateTime', 'eventEdit', 'event'])
+const props = defineProps(['dialog', 'employeeId', 'selectedDateTime', 'eventEdit', 'event', 'professionId'])
 const emit = defineEmits(['update:dialog', 'refresh-vue-cal', 'update:event'])
 
 const bookingDateTime = ref(undefined)

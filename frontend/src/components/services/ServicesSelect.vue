@@ -9,17 +9,23 @@
 </template>
 
 <script setup>
-// import { storeToRefs } from "pinia"
+import { storeToRefs } from "pinia"
 import {computed, onMounted, ref} from "vue"
 import {useServiceStore} from "@/stores/services";
 
 const emit = defineEmits(['update:modelValue'])
+const props = defineProps({
+  professionId: {default: 0}
+})
 
 const storeService = useServiceStore()
 
-// const { getServicesByProfession } = storeToRefs(storeService)
+const { getServicesByProfession } = storeToRefs(storeService)
 const services = computed(() => {
-  // return getServicesByProfession.value(1)
+  if (props.professionId) {
+    return getServicesByProfession.value(props.professionId)
+  }
+
   return storeService.getServices
 })
 
