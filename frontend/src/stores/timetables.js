@@ -1,7 +1,10 @@
 import {defineStore} from "pinia"
 import axios from "axios"
 import {formatDateLikeISO} from "@/modules/date_operations.js"
+import getFullApiPath from "@/modules/api-config"
 
+const timetableApiPath = getFullApiPath("api/timetable")
+const splitsApiPath = getFullApiPath("api/splits")
 
 export const useTimetableStore = defineStore('timetable', {
     state: () => ({
@@ -18,14 +21,14 @@ export const useTimetableStore = defineStore('timetable', {
     },
     actions: {
         fetchTimetable() {
-            axios.get("http://127.0.0.1:3001/api/employee/timetable").then((res) => {
+            axios.get(timetableApiPath).then((res) => {
                 this.timetable = res.data
             }).catch((err) => {
                 console.error(err)
             })
         },
         fetchSplitDays(selectedDate) {
-            axios.get("http://127.0.0.1:3001/api/splits", {
+            axios.get(splitsApiPath, {
                 params: {
                     selected_date: formatDateLikeISO(selectedDate)
                 }
@@ -36,7 +39,7 @@ export const useTimetableStore = defineStore('timetable', {
             })
         },
         addTimetable(timetable) {
-            axios.post("http://127.0.0.1:3001/api/employee/timetable", {
+            axios.post(timetableApiPath, {
                 data: timetable,
             }).then((res) => {
                 this.fetchTimetable()
@@ -45,7 +48,7 @@ export const useTimetableStore = defineStore('timetable', {
             })
         },
         deleteTimetable(timetableToClearDays) {
-            axios.delete("http://127.0.0.1:3001/api/employee/timetable", {
+            axios.delete(timetableApiPath, {
                 data: timetableToClearDays
             }).then(() => {
                 this.fetchTimetable()

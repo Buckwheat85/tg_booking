@@ -1,7 +1,9 @@
 import {defineStore} from "pinia"
 import axios from "axios"
 import { formatDateTimeForSQLQuery } from "@/modules/date_operations.js"
+import getFullApiPath from "@/modules/api-config"
 
+const bookingApiPath = getFullApiPath("api/booking")
 
 export const useWorkShedulesStore = defineStore('workshedules', {
     state: () => ({
@@ -17,7 +19,7 @@ export const useWorkShedulesStore = defineStore('workshedules', {
             const timeFromUTC = formatDateTimeForSQLQuery(timeFrom)
             const timeToUTC = formatDateTimeForSQLQuery(timeTo)
 
-            axios.get(`http://127.0.0.1:3001/api/booking`, {
+            axios.get(bookingApiPath, {
                 params: {
                     time_from: timeFromUTC,
                     time_to: timeToUTC
@@ -33,23 +35,22 @@ export const useWorkShedulesStore = defineStore('workshedules', {
             })
         },
         async addBooking(data) {
-            await axios.post("http://127.0.0.1:3001/api/booking", {
+            await axios.post(bookingApiPath, {
                 data: data,
             }).then((res) => {
                 // this.fetchWorkShedules()
-            }).catch(() => {
-                console.error('ошибка бронирования')
+            }).catch((err) => {
+                console.error(err)
             })
         },
         async deleteBooking(eventId) {
-            const path = `http://127.0.0.1:3001/api/booking/${eventId}`
+            const path = bookingApiPath + `${eventId}`
             await axios.delete(path).catch((err)=>{
                 console.error(err)
             })
         },
         async editBooking(data) {
-            const path = `http://127.0.0.1:3001/api/booking`
-            await axios.put(path, data).catch((err)=>{
+            await axios.put(bookingApiPath, data).catch((err)=>{
                 console.error(err)
             })
         }

@@ -1,5 +1,8 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import getFullApiPath from "@/modules/api-config"
+
+const clientsApiPath = getFullApiPath("api/clients")
 
 export const useClientStore = defineStore('client', {
     state: () => ({
@@ -13,14 +16,14 @@ export const useClientStore = defineStore('client', {
     actions: {
         async fetchClients() {
             try {
-                const response = await axios.get("http://127.0.0.1:3001/api/clients")
+                const response = await axios.get(clientsApiPath)
                 this.clients = response.data
             } catch (err) {
                 console.error(err)
             }
         },
         async addClient(clientName) {
-            await axios.post("http://127.0.0.1:3001/api/clients", {
+            await axios.post(clientsApiPath, {
                 data: clientName
             }).then((res) => {
                 this.fetchClients()
@@ -29,7 +32,7 @@ export const useClientStore = defineStore('client', {
             })
         },
         deleteClient(id) {
-            axios.delete("http://127.0.0.1:3001/api/clients", {
+            axios.delete(clientsApiPath, {
                 data: {id: id}
             }).then((res) => {
                 this.fetchClients()

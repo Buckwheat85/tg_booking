@@ -1,5 +1,8 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import getFullApiPath from "@/modules/api-config"
+
+const servicesApiPath = getFullApiPath("api/services")
 
 export const useServiceStore = defineStore('service', {
     state: () => ({
@@ -20,29 +23,29 @@ export const useServiceStore = defineStore('service', {
     actions: {
         async fetchServices() {
             try {
-                const response = await axios.get("http://127.0.0.1:3001/api/services")
+                const response = await axios.get(servicesApiPath)
                 this.services = response.data
             } catch (err) {
                 console.error(err)
             }
         },
         addService(serviceName, professionId) {
-            axios.post("http://127.0.0.1:3001/api/services", {
+            axios.post(servicesApiPath, {
                 serviceName,
                 professionId
             }).then((res) => {
                 this.fetchServices()
             }).catch((err) => {
-                console.log(err)
+                console.error(err)
             })
         },
         removeService(serviceId) {
-            axios.delete("http://127.0.0.1:3001/api/services",{
+            axios.delete(servicesApiPath,{
                 data: {serviceId}
             }).then((res) => {
                 this.fetchServices()
             }).catch((err) => {
-                console.log(err)
+                console.error(err)
             })
         },
     }

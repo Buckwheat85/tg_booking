@@ -1,5 +1,8 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import getFullApiPath from "@/modules/api-config"
+
+const professionsApiPath = getFullApiPath("api/professions")
 
 export const useProfessionStore = defineStore('profession', {
     state: () => ({
@@ -13,28 +16,28 @@ export const useProfessionStore = defineStore('profession', {
     actions: {
         async fetchProfessions() {
             try {
-                const response = await axios.get("http://127.0.0.1:3001/api/professions")
+                const response = await axios.get(professionsApiPath)
                 this.professions = response.data
-            } catch (error) {
-                console.log(error)
+            } catch (err) {
+                console.log(err)
             }
         },
         addProfession(profName) {
-            axios.post("http://127.0.0.1:3001/api/professions", {
+            axios.post(professionsApiPath, {
                 profName: profName,
             }).then((res) => {
                 this.fetchProfessions()
-            }).catch(() => {
-                console.log('ошибка добавления профессии')
+            }).catch((err) => {
+                console.error(err)
             })
         },
         removeProfession(profId) {
-            axios.delete("http://127.0.0.1:3001/api/professions", {
+            axios.delete(professionsApiPath, {
                 data: {profId}
             }).then((res) => {
                 this.fetchProfessions()
-            }).catch(() => {
-                console.log('ошибка удаления профессии')
+            }).catch((err) => {
+                console.error(err)
             })
         },
     }

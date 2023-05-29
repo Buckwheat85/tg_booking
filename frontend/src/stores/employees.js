@@ -1,5 +1,8 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import getFullApiPath from "@/modules/api-config"
+
+const employeesApiPath = getFullApiPath("api/employees")
 
 export const useEmployeeStore = defineStore('employee', {
     state: () => ({
@@ -27,30 +30,30 @@ export const useEmployeeStore = defineStore('employee', {
     },
     actions: {
         fetchEmployees() {
-            axios.get("http://127.0.0.1:3001/api/employees").then((res)=>{
+            axios.get(employeesApiPath).then((res)=>{
                 this.employees = res.data
             }).catch((err)=>{
                 console.error(err)
             })
         },
         async addEmployee(employeeName, profID) {
-            await axios.post("http://127.0.0.1:3001/api/employees", {
+            await axios.post(employeesApiPath, {
                 employeeName: employeeName,
                 profID: profID
             })
                 .then((res) => {
                     this.fetchEmployees()
-                }).catch(() => {
-                console.log('ошибка добавления сотрудника')
+                }).catch((err) => {
+                console.error(err)
             })
         },
         async removeEmployee(empId) {
-            await axios.delete("http://127.0.0.1:3001/api/employees", {
+            await axios.delete(employeesApiPath, {
                 data: {empId}
             }).then((res) => {
                 this.fetchEmployees()
-            }).catch(() => {
-                console.log('ошибка удаления сотрудника')
+            }).catch((err) => {
+                console.error(err)
             })
         },
     }
