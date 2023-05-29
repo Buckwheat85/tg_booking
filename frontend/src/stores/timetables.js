@@ -3,7 +3,7 @@ import axios from "axios"
 import {formatDateLikeISO} from "@/modules/date_operations.js"
 import getFullApiPath from "@/modules/api-config"
 
-const timetableApiPath = getFullApiPath("api/timetable")
+const timetableApiPath = getFullApiPath("api/employee/timetable")
 const splitsApiPath = getFullApiPath("api/splits")
 
 export const useTimetableStore = defineStore('timetable', {
