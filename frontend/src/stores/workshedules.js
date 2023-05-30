@@ -44,7 +44,7 @@ export const useWorkShedulesStore = defineStore('workshedules', {
             })
         },
         async deleteBooking(eventId) {
-            const path = bookingApiPath + `${eventId}`
+            const path = bookingApiPath + `/${eventId}`
             await axios.delete(path).catch((err)=>{
                 console.error(err)
             })
