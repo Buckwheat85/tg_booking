@@ -1,5 +1,5 @@
 
-const apiHost = '192.168.1.116'
+const apiHost = '127.0.0.1'
 const apiPort = '3000'
 const apiProtocol = 'http'
 
