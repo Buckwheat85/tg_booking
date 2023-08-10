@@ -109,9 +109,9 @@ function clickCalendar(data) {
 
 function dateChange(data) {
   storeMisc.setLastCalendarDate(data.startDate)
-  this.timeFrom = data.startDate
-  this.timeTo = data.endDate
-  fetchEvents(this.timeFrom, this.timeTo)
+  timeFrom.value = data.startDate
+  timeTo.value = data.endDate
+  fetchEvents(timeFrom.value, timeTo.value)
 }
 
 async function fetchEvents(timeFrom, timeTo) {
