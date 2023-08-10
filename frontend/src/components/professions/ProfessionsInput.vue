@@ -56,7 +56,7 @@ const dataIsCorrect = computed(() =>
 )
 
 const addProfessionClick = function () {
-  storeProfession.addProfession(this.profName)
+  storeProfession.addProfession(profName.value)
   close()
 }
 
