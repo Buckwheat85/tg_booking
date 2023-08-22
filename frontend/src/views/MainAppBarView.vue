@@ -28,10 +28,20 @@
     >Студия красоты Татьяны Гриценко
     </v-app-bar-title>
 
+    <v-btn icon="mdi-account"
+      @click="loginIconClick"
+    />
+   
     <template v-slot:append>
       <v-btn icon="mdi-theme-light-dark" @click="toggleTheme"/>
     </template>
   </v-app-bar>
+
+  <v-container>
+    <login-form
+    v-model:dialog="dialogLogin"
+    />
+  </v-container>
 </template>
 
 <script setup>
@@ -46,9 +56,17 @@ import {useTheme} from 'vuetify'
 import {computed, ref} from "vue";
 
 const theme = useTheme()
+
+import LoginForm from '@/components/account/LoginForm'
+const dialogLogin = ref(false)
+
 function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
   localStorage.setItem('color-theme', theme.global.name.value)
+}
+
+function loginIconClick() {
+  dialogLogin.value = true
 }
 
 </script>
