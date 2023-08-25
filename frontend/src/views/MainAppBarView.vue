@@ -28,7 +28,14 @@
     >Студия красоты Татьяны Гриценко
     </v-app-bar-title>
 
-    <v-btn icon="mdi-account"
+    <v-btn 
+    v-if="!isLoggedIn"
+    icon="mdi-account"
+      @click="loginIconClick"
+    />
+    <v-btn 
+    v-if="isLoggedIn"
+    icon="mdi-account-check"
       @click="loginIconClick"
     />
    
@@ -59,6 +66,7 @@ const theme = useTheme()
 
 import LoginForm from '@/components/account/LoginForm'
 const dialogLogin = ref(false)
+const isLoggedIn = ref(true)
 
 function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
